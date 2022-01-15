@@ -12,14 +12,22 @@ import {
   StudentResponseDto,
   UpdateStudentDto,
 } from './dto/student.dto';
+import { StudentService } from './student.service';
 /* you generate a controller by giving a class the controller decorator  */
 /* passing a string to the controller will join that string to all other endpoints that this controller handles */
 @Controller('students')
 export class StudentController {
+  /* 
+    to use handle the generation fo the return data 
+    inject the service into the controller
+    - read only means that you cannot modify the service
+    - like angular services
+     */
+  constructor(private readonly studentService: StudentService) {}
   /* identify which methods are a endpoint by using a endpoint decorator */
   @Get()
   getStudents(): FindStudentResponseDto[] {
-    return 'All students';
+    return this.studentService.getStudents();
   }
 
   @Get('/:studentId')
@@ -37,7 +45,7 @@ export class StudentController {
   getStudentById(
     @Param('studentId') studentId: string,
   ): FindStudentResponseDto {
-    return `Get student by id: ${studentId}`;
+    return this.studentService.getStudentById(studentId);
   }
 
   @Post()
@@ -63,7 +71,7 @@ export class StudentController {
     @Body()
     body: CreateStudentDto,
   ): StudentResponseDto {
-    return `Create student ${JSON.stringify(body)}`;
+    return this.studentService.createStudent(body);
   }
 
   /* you want to add DTOs to:
@@ -75,6 +83,10 @@ export class StudentController {
     @Param('studentId') studentId: string,
     @Body() body: UpdateStudentDto,
   ): StudentResponseDto {
-    return `Update student ${studentId} with ${JSON.stringify(body)}`;
+    return this.studentService.updateStudent(studentId, body);
   }
 }
+
+/* 
+  Providers are going to handle generating the response data
+ */

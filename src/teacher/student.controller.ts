@@ -1,6 +1,9 @@
 import { Body, Controller, Get, Param, Put } from '@nestjs/common';
-import { UpdateStudentDto } from 'src/student/dto/student.dto';
-import { FindTeacherResponseDto } from './dto/teacher.dto';
+import {
+  FindStudentResponseDto,
+  UpdateStudentDto,
+} from 'src/student/dto/student.dto';
+import { StudentService } from 'src/student/student.service';
 
 /* when you have many endpoint text that repeat themself to a point you have make another controller to:
     - manage the size 
@@ -9,19 +12,20 @@ import { FindTeacherResponseDto } from './dto/teacher.dto';
 */
 @Controller('teachers/:teacherId/students')
 export class StudentTeacherController {
+  constructor(private readonly studentService: StudentService) {}
   @Get()
-  getstudentByTeacherId(
+  getStudentByTeacherId(
     @Param('teacherId') teacherId: string,
   ): FindStudentResponseDto[] {
-    return `Get teacher by id: ${teacherId}`;
+    return this.studentService.getStudentByTeacherId(teacherId);
   }
 
   @Put('/:studentId')
-  updateTeacher(
+  updateStudentTeacher(
     @Param('teacherId') teacherId: string,
     @Param('studentId') studentId: string,
     @Body() body: UpdateStudentDto,
   ): FindStudentResponseDto {
-    return `Update student ${studentId} by a specific teacher ${teacherId}.`;
+    return this.studentService.updateStudentTeacher(teacherId, studentId, body);
   }
 }
