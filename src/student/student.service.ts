@@ -7,7 +7,7 @@ import {
   UpdateStudentDto,
 } from './dto/student.dto';
 import { v4 as uuid } from 'uuid';
-/* you have to the .module.ts about the provider so that nestjs can handle the service */
+/* you have define them in the .module.ts provider so that nestjs can handle the service */
 /* here is where the return data is generated 
 inside the methods you typically deal with database logic.
  */
