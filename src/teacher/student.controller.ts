@@ -10,6 +10,7 @@ import { StudentService } from 'src/student/student.service';
     - make the code dryer. 
     - cleans up the files
 */
+/* because in the end you are dealing with student data (see db) it's a good idea to use student dto and service */
 @Controller('teachers/:teacherId/students')
 export class StudentTeacherController {
   constructor(private readonly studentService: StudentService) {}
