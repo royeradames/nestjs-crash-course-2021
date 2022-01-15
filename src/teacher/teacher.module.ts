@@ -1,4 +1,10 @@
-import { Module } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  RequestMethod,
+} from '@nestjs/common';
+import { ValidateStudentMiddleware } from 'src/common/middleware/validateStudents.middleware';
 import { StudentModule } from 'src/student/student.module';
 import { StudentTeacherController } from './student.controller';
 import { TeacherController } from './teacher.controller';
@@ -15,4 +21,22 @@ import { TeacherService } from './teacher.service';
   */
   providers: [TeacherService],
 })
-export class TeacherModule {}
+
+/* NestModule is needed add a middleware */
+// implements NestModule
+export class TeacherModule {
+  //   /* configure allow to change the setting to the way we want
+  //     - this is how you apply a middleware to a module
+  //      */
+  //   configure(consumer: MiddlewareConsumer) {
+  //     //   for routers can be use to expecify a specific route
+  //     consumer.apply(ValidateStudentMiddleware).forRoutes({
+  //       path: 'teachers/:teacherId',
+  //       method: RequestMethod.GET,
+  //     });
+  //     consumer.apply(ValidateStudentMiddleware).forRoutes({
+  //       path: 'teachers/:teacherId/students/:studentId',
+  //       method: RequestMethod.PUT,
+  //     });
+  //   }
+}
