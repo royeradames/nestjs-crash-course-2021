@@ -5,7 +5,15 @@
 They need to be imported into the module.ts has controllers for them to work.
  */
 
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseUUIDPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
 import {
   CreateStudentDto,
   FindStudentResponseDto,
@@ -43,7 +51,7 @@ export class StudentController {
   or event better we can skip the deconstructing step and just use the params('studentId') studentId : string;
    */
   getStudentById(
-    @Param('studentId') studentId: string,
+    @Param('studentId', new ParseUUIDPipe()) studentId: string,
   ): FindStudentResponseDto {
     return this.studentService.getStudentById(studentId);
   }
@@ -80,7 +88,12 @@ export class StudentController {
    */
   @Put('/:studentId')
   updateStudent(
-    @Param('studentId') studentId: string,
+    /* //* pipes
+    - see the build in pipes image for a list of available pipes
+    - custom can be build
+    - you need to deconstruct the input to use pipes
+     */
+    @Param('studentId', new ParseUUIDPipe()) studentId: string,
     @Body() body: UpdateStudentDto,
   ): StudentResponseDto {
     return this.studentService.updateStudent(studentId, body);
