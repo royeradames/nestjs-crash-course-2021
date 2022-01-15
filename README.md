@@ -13,10 +13,18 @@
 
 ## Intro
 ## Creating a Nest App
+explaining the main and app.module.ts do
 ## Controllers
+defining how to generate an endpoint
 ## Request Objects
+Defining how to catch the user inputs
 ## Data Transfer Objects (DTO)
+Create DTOs to validate body input
 ## Providers
+Handling the data generation (commonly by dealing with database)
 ## Pipes
+use the ParseUUidPipe for all endpoints that take an id as a parameter
 ## Modules
+Create a Module for students and teachers
 ## Middleware
+Adding extra functionality to the app
