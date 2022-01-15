@@ -26,6 +26,9 @@ export class StudentModule implements NestModule {
      */
   configure(consumer: MiddlewareConsumer) {
     //   for routers can be use to expecify a specific route
+    // you can just pass the controller path name to apply to the whole controller
+    // there is you can also exlude specific routes
+    // https://docs.nestjs.com/middleware
     consumer.apply(ValidateStudentMiddleware).forRoutes({
       path: 'students/:studentsId',
       method: RequestMethod.GET,
